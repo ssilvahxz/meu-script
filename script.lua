@@ -7,6 +7,12 @@ local KeysValidas = {
     ["2011"] = true,
     ["3456"] = true,
     ["8899"] = true,
+    ["4821"] = true, 
+    ["1063"] = true,
+    ["9257"] = true,
+    ["3418"] = true,
+    ["6782"] = true,
+
 }
 
 local FileName = "PremiumHub_Keys.json"
