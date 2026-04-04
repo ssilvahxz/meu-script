@@ -60,22 +60,17 @@ local Window = Rayfield:CreateWindow({
    ConfigurationSaving = { Enabled = false }
 })
 
--- 🔥 BOTÃO HACKER CUSTOM
+-- BOTÃO HACKER
 task.spawn(function()
     while true do
         task.wait(0.5)
         for _, v in pairs(game.CoreGui:GetDescendants()) do
             if v:IsA("TextLabel") and v.Text:find("Rayfield") then
-                
-                -- TEXTO
                 v.Text = "⚡ SILVAHXZ18 MENU ⚡"
                 v.TextColor3 = Color3.fromRGB(0,255,150)
-
-                -- NEON (Glow fake)
                 v.TextStrokeTransparency = 0
                 v.TextStrokeColor3 = Color3.fromRGB(0,255,150)
 
-                -- ANIMAÇÃO (piscar hacker)
                 spawn(function()
                     while v and v.Parent do
                         v.TextTransparency = 0
@@ -84,7 +79,6 @@ task.spawn(function()
                         task.wait(0.3)
                     end
                 end)
-
             end
         end
     end
@@ -191,7 +185,12 @@ CreditTab:CreateSection("🔗 Contato")
 CreditTab:CreateButton({
    Name = "📋 Copiar Discord",
    Callback = function()
-      setclipboard("silvahxz18")
+      setclipboard("https://discord.gg/Zgjms7B8H")
+      Rayfield:Notify({
+          Title = "Discord",
+          Content = "Link copiado com sucesso!",
+          Duration = 3
+      })
    end,
 })
 
