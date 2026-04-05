@@ -306,21 +306,18 @@ TPTab:CreateButton({
 TPTab:CreateSection(" ") 
 
 local noclip = false
-local player = game.Players.LocalPlayer
 
--- Ativar / Desativar com tecla (N)
-game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
-    if gameProcessed then return end
-    if input.KeyCode == Enum.KeyCode.N then
-        noclip = not noclip
-        print("Noclip:", noclip and "ON" or "OFF")
+TPTab:CreateToggle({
+    Name = "Noclip",
+    CurrentValue = false,
+    Callback = function(Value)
+        noclip = Value
     end
-end)
+})
 
--- Loop do noclip
 game:GetService("RunService").Stepped:Connect(function()
-    if noclip and player.Character then
-        for _, part in pairs(player.Character:GetDescendants()) do
+    if noclip and game.Players.LocalPlayer.Character then
+        for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
             if part:IsA("BasePart") then
                 part.CanCollide = false
             end
