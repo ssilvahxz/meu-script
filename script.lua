@@ -323,6 +323,7 @@ TPTab:CreateButton({
     end
 }}
 
+
 -- GUIA
 local InfoTab = Window:CreateTab("📖 Guia de Uso", 4483362458)
 InfoTab:CreateSection("📘 Manual do Usuário")
