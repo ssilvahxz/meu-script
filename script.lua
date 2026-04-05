@@ -268,7 +268,7 @@ TPTab:CreateButton({
     Name = "💾 Salvar Local 03",
     Callback = function()
         if AcessoAtivado and Player.Character then
-            Ponto2 = Player.Character.HumanoidRootPart.CFrame
+            Ponto3 = Player.Character.HumanoidRootPart.CFrame
         end
     end
 })
