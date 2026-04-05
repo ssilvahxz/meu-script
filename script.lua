@@ -259,6 +259,23 @@ TPTab:CreateButton({
         end
     end
 })
+TPTab:CreateButton({
+    Name = "💾 Salvar Local 03",
+    Callback = function()
+        if AcessoAtivado and Player.Character then
+            Ponto2 = Player.Character.HumanoidRootPart.CFrame
+        end
+    end
+})
+
+TPTab:CreateButton({
+    Name = "📌 Ir para Local 03",
+    Callback = function()
+        if AcessoAtivado and Ponto2 and Player.Character then
+            Player.Character.HumanoidRootPart.CFrame = Ponto3
+        end
+    end
+})
 
 -- GUIA
 local InfoTab = Window:CreateTab("📖 Guia de Uso", 4483362458)
