@@ -212,6 +212,30 @@ LoginTab:CreateInput({
 -- TELEPORT
 local TPTab = Window:CreateTab("🚀 Teleportes", 4483362458)
 
+-- ABA VERSÃO
+local VersionTab = Window:CreateTab("📌 Versão", 4483362458)
+
+-- Configura a versão inicial (você pode mudar no GitHub)
+local ScriptVersion = "1.0.0"
+
+-- Função para pegar data e hora atual
+local function GetCurrentDateTime()
+    local date = os.date("*t") -- pega tabela com dia, mês, ano, hora, minuto, segundo
+    return string.format("%02d/%02d/%04d %02d:%02d:%02d", 
+        date.day, date.month, date.year, date.hour, date.min, date.sec)
+end
+
+-- Label principal da versão
+local VersionLabel = VersionTab:CreateLabel("Versão: "..ScriptVersion.." | "..GetCurrentDateTime())
+
+-- Atualizar a data/hora a cada segundo
+task.spawn(function()
+    while true do
+        task.wait(1)
+        VersionLabel:Set("Versão: "..ScriptVersion.." | "..GetCurrentDateTime())
+    end
+end)
+
 -- 👇 COLE O NOCLIP AQUI
 local noclip = false
 
