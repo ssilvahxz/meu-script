@@ -117,7 +117,7 @@ local Player = game.Players.LocalPlayer
 local CurrentPlayerName = Player.Name
 local AcessoAtivado = false
 local ClickTPEnabled = false
-local Ponto1, Ponto2 = nil, nil
+local Ponto1, Ponto2, Ponto3 = nil, nil,nil
 
 -- Carregar keys
 if isfile and isfile(FileName) then
