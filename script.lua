@@ -376,7 +376,7 @@ CreditTab:CreateButton({
 local VersionTab = Window:CreateTab("📌 Versão", 4483362458)
 
 -- Configura a versão inicial (você pode mudar no GitHub)
-local ScriptVersion = "1.0.0"
+local ScriptVersion = "1.0.1"
 
 -- Função para pegar data e hora atual
 local function GetCurrentDateTime()
