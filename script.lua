@@ -242,6 +242,8 @@ TPTab:CreateButton({
     end
 })
 
+TPTab:CreateSection(" ") -- seção vazia para espaçar
+
 TPTab:CreateButton({
     Name = "💾 Salvar Local 02",
     Callback = function()
@@ -271,7 +273,7 @@ TPTab:CreateButton({
 TPTab:CreateButton({
     Name = "📌 Ir para Local 03",
     Callback = function()
-        if AcessoAtivado and Ponto2 and Player.Character then
+        if AcessoAtivado and Ponto3 and Player.Character then
             Player.Character.HumanoidRootPart.CFrame = Ponto3
         end
     end
