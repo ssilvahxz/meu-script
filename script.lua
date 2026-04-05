@@ -224,11 +224,17 @@ TPTab:CreateToggle({
 
 TPTab:CreateSection("📍 Sistema de Posições")
 
+-- Teleporte - Local 1
 TPTab:CreateButton({
     Name = "💾 Salvar Local 01",
     Callback = function()
         if AcessoAtivado and Player.Character then
             Ponto1 = Player.Character.HumanoidRootPart.CFrame
+            Rayfield:Notify({
+                Title = "💾 Local 01",
+                Content = "Local 01 salvo com sucesso!",
+                Duration = 3
+            })
         end
     end
 })
@@ -242,13 +248,20 @@ TPTab:CreateButton({
     end
 })
 
-TPTab:CreateSection(" ") -- seção vazia para espaçar
+-- Espaço
+TPTab:CreateSection(" ") 
 
+-- Teleporte - Local 2
 TPTab:CreateButton({
     Name = "💾 Salvar Local 02",
     Callback = function()
         if AcessoAtivado and Player.Character then
             Ponto2 = Player.Character.HumanoidRootPart.CFrame
+            Rayfield:Notify({
+                Title = "💾 Local 02",
+                Content = "Local 02 salvo com sucesso!",
+                Duration = 3
+            })
         end
     end
 })
@@ -262,13 +275,20 @@ TPTab:CreateButton({
     end
 })
 
-TPTab:CreateSection(" ") -- seção vazia para espaçar
+-- Espaço
+TPTab:CreateSection(" ") 
 
+-- Teleporte - Local 3
 TPTab:CreateButton({
     Name = "💾 Salvar Local 03",
     Callback = function()
         if AcessoAtivado and Player.Character then
             Ponto3 = Player.Character.HumanoidRootPart.CFrame
+            Rayfield:Notify({
+                Title = "💾 Local 03",
+                Content = "Local 03 salvo com sucesso!",
+                Duration = 3
+            })
         end
     end
 })
