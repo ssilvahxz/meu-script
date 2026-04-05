@@ -321,8 +321,7 @@ TPTab:CreateButton({
             Player.Character.HumanoidRootPart.CFrame = Ponto3
         end
     end
-}}
-
+})
 
 -- GUIA
 local InfoTab = Window:CreateTab("📖 Guia de Uso", 4483362458)
