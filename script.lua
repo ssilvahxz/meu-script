@@ -302,6 +302,32 @@ TPTab:CreateButton({
     end
 })
 
+-- Espaço
+TPTab:CreateSection(" ") 
+
+local noclip = false
+local player = game.Players.LocalPlayer
+
+-- Ativar / Desativar com tecla (N)
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.N then
+        noclip = not noclip
+        print("Noclip:", noclip and "ON" or "OFF")
+    end
+end)
+
+-- Loop do noclip
+game:GetService("RunService").Stepped:Connect(function()
+    if noclip and player.Character then
+        for _, part in pairs(player.Character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    end
+end)
+
 -- GUIA
 local InfoTab = Window:CreateTab("📖 Guia de Uso", 4483362458)
 InfoTab:CreateSection("📘 Manual do Usuário")
