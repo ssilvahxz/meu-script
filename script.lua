@@ -106,7 +106,6 @@ local KeysValidas = {
 ["9867"] = true,
 ["5031"] = true,
 ["6748"] = true,
-["2196"] = true,
 
 }
 
