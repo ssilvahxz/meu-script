@@ -336,6 +336,13 @@ CreditTab:CreateButton({
       })
    end,
 })
+-- ABA CONFIGURAÇÃO
+local ConfigTab = Window:CreateTab("⚙️ Configuração", 4483362458)
+
+ConfigTab:CreateSection("💾 Sistema de Configurações")
+ConfigTab:CreateLabel("Sistema de salvar configurações em breve")
+ConfigTab:CreateLabel("Fica ligado para mais atualizações no script")
+ConfigTab:CreateSection(" ") -- espaço extra
 
 -- CLICK TP
 local Mouse = Player:GetMouse()
