@@ -211,17 +211,33 @@ LoginTab:CreateInput({
 -- TELEPORT
 local TPTab = Window:CreateTab("🚀 Teleportes", 4483362458)
 
--- 👇 COLE O NOCLIP AQUI
 local noclip = false
 
 TPTab:CreateToggle({
     Name = "👻 Noclip",
     CurrentValue = false,
     Callback = function(Value)
-        noclip = Value
+        if AcessoAtivado then
+            noclip = Value
+        else
+            Rayfield:Notify({
+                Title = "🔒 Bloqueado",
+                Content = "Digite a Key primeiro!",
+                Duration = 3
+            })
+        end
     end
 })
 
+game:GetService("RunService").Stepped:Connect(function()
+    if noclip and AcessoAtivado and game.Players.LocalPlayer.Character then
+        for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    end
+end)
 game:GetService("RunService").Stepped:Connect(function()
     if noclip and game.Players.LocalPlayer.Character then
         for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
