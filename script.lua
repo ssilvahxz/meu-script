@@ -395,6 +395,31 @@ task.spawn(function()
         VersionLabel:Set("Versão: "..ScriptVersion.." | "..GetCurrentDateTime())
     end
 end)
+
+--================ CONFIG PRO =================
+local ConfigFile = "SilvaHub_Config.json"
+
+local function SalvarConfig()
+    if writefile then
+        writefile(ConfigFile, HttpService:JSONEncode(S))
+    end
+end
+
+local function CarregarConfig()
+    if isfile and isfile(ConfigFile) then
+        local success, data = pcall(function()
+            return HttpService:JSONDecode(readfile(ConfigFile))
+        end)
+        if success and type(data) == "table" then
+            for k,v in pairs(data) do
+                S[k] = v
+            end
+        end
+    end
+end
+
+-- carregar automaticamente
+CarregarConfig()
 --================ ABA CONFIG =================
 local ConfigTab = Window:CreateTab("⚙️ Config")
 
