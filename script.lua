@@ -398,27 +398,34 @@ end)
 
 --================ CONFIG AUTO SYSTEM =================
 local HttpService = game:GetService("HttpService")
+--================ CONFIG REAL FIX =================
+local HttpService = game:GetService("HttpService")
 local ConfigFile = "SilvaHub_Config.json"
 
--- variáveis que vamos salvar automaticamente
-local ConfigData = {
-    noclip = false,
-    clicktp = false,
-    ponto1 = nil,
-    ponto2 = nil,
-    ponto3 = nil
-}
+-- converter CFrame → tabela
+local function CFrameToTable(cf)
+    if not cf then return nil end
+    return {cf:GetComponents()}
+end
+
+-- tabela → CFrame
+local function TableToCFrame(tab)
+    if not tab then return nil end
+    return CFrame.new(unpack(tab))
+end
 
 -- SALVAR
 local function SaveConfig()
     if writefile then
-        ConfigData.noclip = noclip
-        ConfigData.clicktp = ClickTPEnabled
-        ConfigData.ponto1 = Ponto1
-        ConfigData.ponto2 = Ponto2
-        ConfigData.ponto3 = Ponto3
+        local data = {
+            noclip = noclip,
+            clicktp = ClickTPEnabled,
+            ponto1 = CFrameToTable(Ponto1),
+            ponto2 = CFrameToTable(Ponto2),
+            ponto3 = CFrameToTable(Ponto3)
+        }
 
-        writefile(ConfigFile, HttpService:JSONEncode(ConfigData))
+        writefile(ConfigFile, HttpService:JSONEncode(data))
     end
 end
 
@@ -430,13 +437,12 @@ local function LoadConfig()
         end)
 
         if success and type(data) == "table" then
-            ConfigData = data
+            noclip = data.noclip or false
+            ClickTPEnabled = data.clicktp or false
 
-            noclip = ConfigData.noclip or false
-            ClickTPEnabled = ConfigData.clicktp or false
-            Ponto1 = ConfigData.ponto1
-            Ponto2 = ConfigData.ponto2
-            Ponto3 = ConfigData.ponto3
+            Ponto1 = TableToCFrame(data.ponto1)
+            Ponto2 = TableToCFrame(data.ponto2)
+            Ponto3 = TableToCFrame(data.ponto3)
         end
     end
 end
