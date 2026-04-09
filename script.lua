@@ -396,30 +396,53 @@ task.spawn(function()
     end
 end)
 
---================ CONFIG PRO =================
+--================ CONFIG AUTO SYSTEM =================
+local HttpService = game:GetService("HttpService")
 local ConfigFile = "SilvaHub_Config.json"
 
-local function SalvarConfig()
+-- variáveis que vamos salvar automaticamente
+local ConfigData = {
+    noclip = false,
+    clicktp = false,
+    ponto1 = nil,
+    ponto2 = nil,
+    ponto3 = nil
+}
+
+-- SALVAR
+local function SaveConfig()
     if writefile then
-        writefile(ConfigFile, HttpService:JSONEncode(S))
+        ConfigData.noclip = noclip
+        ConfigData.clicktp = ClickTPEnabled
+        ConfigData.ponto1 = Ponto1
+        ConfigData.ponto2 = Ponto2
+        ConfigData.ponto3 = Ponto3
+
+        writefile(ConfigFile, HttpService:JSONEncode(ConfigData))
     end
 end
 
-local function CarregarConfig()
+-- CARREGAR
+local function LoadConfig()
     if isfile and isfile(ConfigFile) then
         local success, data = pcall(function()
             return HttpService:JSONDecode(readfile(ConfigFile))
         end)
+
         if success and type(data) == "table" then
-            for k,v in pairs(data) do
-                S[k] = v
-            end
+            ConfigData = data
+
+            noclip = ConfigData.noclip or false
+            ClickTPEnabled = ConfigData.clicktp or false
+            Ponto1 = ConfigData.ponto1
+            Ponto2 = ConfigData.ponto2
+            Ponto3 = ConfigData.ponto3
         end
     end
 end
 
--- carregar automaticamente
-CarregarConfig()
+-- carregar automático
+LoadConfig()
 
 --================ ABA CONFIG =================
 local ConfigTab = Window:CreateTab("⚙️ Config")
@@ -427,10 +450,10 @@ local ConfigTab = Window:CreateTab("⚙️ Config")
 ConfigTab:CreateButton({
     Name = "💾 Salvar Config",
     Callback = function()
-        SalvarConfig()
+        SaveConfig()
         Rayfield:Notify({
             Title = "Config",
-            Content = "Configuração salva!",
+            Content = "Salvo com sucesso!",
             Duration = 3
         })
     end
@@ -439,10 +462,10 @@ ConfigTab:CreateButton({
 ConfigTab:CreateButton({
     Name = "📂 Carregar Config",
     Callback = function()
-        CarregarConfig()
+        LoadConfig()
         Rayfield:Notify({
             Title = "Config",
-            Content = "Config carregada!",
+            Content = "Carregado com sucesso!",
             Duration = 3
         })
     end
