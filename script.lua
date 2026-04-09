@@ -376,7 +376,7 @@ CreditTab:CreateButton({
 local VersionTab = Window:CreateTab("📌 Versão", 4483362458)
 
 -- Configura a versão inicial (você pode mudar no GitHub)
-local ScriptVersion = "1.0.1"
+local ScriptVersion = "1.0.2"
 
 -- Função para pegar data e hora atual
 local function GetCurrentDateTime()
@@ -396,9 +396,7 @@ task.spawn(function()
     end
 end)
 
---================ CONFIG AUTO SYSTEM =================
-local HttpService = game:GetService("HttpService")
---================ CONFIG REAL FIX =================
+--================ CONFIG PRO SYSTEM =================
 local HttpService = game:GetService("HttpService")
 local ConfigFile = "SilvaHub_Config.json"
 
@@ -429,7 +427,7 @@ local function SaveConfig()
     end
 end
 
--- CARREGAR
+-- CARREGAR (AGORA SÓ PELO BOTÃO)
 local function LoadConfig()
     if isfile and isfile(ConfigFile) then
         local success, data = pcall(function()
@@ -447,35 +445,45 @@ local function LoadConfig()
     end
 end
 
--- carregar automático
-LoadConfig()
+--================ ABA CONFIG PRO =================
+local ConfigTab = Window:CreateTab("⚙️ Config PRO")
 
---================ ABA CONFIG =================
-local ConfigTab = Window:CreateTab("⚙️ Config")
+ConfigTab:CreateSection("💾 Sistema de Configuração")
+
+ConfigTab:CreateLabel("Salve suas posições e configurações")
+ConfigTab:CreateLabel("Use carregar apenas quando quiser")
+
+ConfigTab:CreateSection(" ")
 
 ConfigTab:CreateButton({
-    Name = "💾 Salvar Config",
+    Name = "💾 Salvar Configuração",
     Callback = function()
         SaveConfig()
         Rayfield:Notify({
-            Title = "Config",
-            Content = "Salvo com sucesso!",
+            Title = "💾 Config",
+            Content = "Configuração salva com sucesso!",
             Duration = 3
         })
     end
 })
 
 ConfigTab:CreateButton({
-    Name = "📂 Carregar Config",
+    Name = "📂 Carregar Configuração",
     Callback = function()
         LoadConfig()
         Rayfield:Notify({
-            Title = "Config",
-            Content = "Carregado com sucesso!",
+            Title = "📂 Config",
+            Content = "Configuração carregada!",
             Duration = 3
         })
     end
 })
+
+ConfigTab:CreateSection(" ")
+
+ConfigTab:CreateLabel("⚠️ Dica:")
+ConfigTab:CreateLabel("Salve antes de sair do jogo")
+ConfigTab:CreateLabel("Carregue quando entrar novamente")
 -- CLICK TP
 local Mouse = Player:GetMouse()
 Mouse.Button1Down:Connect(function()
