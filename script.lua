@@ -395,14 +395,32 @@ task.spawn(function()
         VersionLabel:Set("Versão: "..ScriptVersion.." | "..GetCurrentDateTime())
     end
 end)
--- ABA CONFIGURAÇÃO
-local ConfigTab = Window:CreateTab("⚙️ Configuração", 4483362458)
+--================ ABA CONFIG =================
+local ConfigTab = Window:CreateTab("⚙️ Config")
 
-ConfigTab:CreateSection("💾 Sistema de Configurações")
-ConfigTab:CreateLabel("Sistema de salvar configurações em breve")
-ConfigTab:CreateLabel("Fica ligado para mais atualizações no script")
-ConfigTab:CreateSection(" ") -- espaço extra
+ConfigTab:CreateButton({
+    Name = "💾 Salvar Config",
+    Callback = function()
+        SalvarConfig()
+        Rayfield:Notify({
+            Title = "Config",
+            Content = "Configuração salva!",
+            Duration = 3
+        })
+    end
+})
 
+ConfigTab:CreateButton({
+    Name = "📂 Carregar Config",
+    Callback = function()
+        CarregarConfig()
+        Rayfield:Notify({
+            Title = "Config",
+            Content = "Config carregada!",
+            Duration = 3
+        })
+    end
+})
 -- CLICK TP
 local Mouse = Player:GetMouse()
 Mouse.Button1Down:Connect(function()
