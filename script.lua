@@ -420,6 +420,7 @@ end
 
 -- carregar automaticamente
 CarregarConfig()
+
 --================ ABA CONFIG =================
 local ConfigTab = Window:CreateTab("⚙️ Config")
 
