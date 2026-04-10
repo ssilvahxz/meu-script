@@ -374,14 +374,45 @@ task.spawn(function()
     end
 end)
 
--- ABA CONFIGURAÇÃO
-local ConfigTab = Window:CreateTab("⚙️ Configuração", 4483362458)
+================ ABA CONFIG PRO =================
+local ConfigTab = Window:CreateTab("⚙️ Config PRO")
 
-ConfigTab:CreateSection("💾 Sistema de Configurações")
-ConfigTab:CreateLabel("Sistema de salvar configurações em breve")
-ConfigTab:CreateLabel("Fica ligado para mais atualizações no script")
-ConfigTab:CreateSection(" ") -- espaço extra
+ConfigTab:CreateSection("💾 Sistema de Configuração")
 
+ConfigTab:CreateLabel("Salve suas posições e configurações")
+ConfigTab:CreateLabel("Use carregar apenas quando quiser")
+
+ConfigTab:CreateSection(" ")
+
+ConfigTab:CreateButton({
+    Name = "💾 Salvar Configuração",
+    Callback = function()
+        SaveConfig()
+        Rayfield:Notify({
+            Title = "💾 Config",
+            Content = "Configuração salva com sucesso!",
+            Duration = 3
+        })
+    end
+})
+
+ConfigTab:CreateButton({
+    Name = "📂 Carregar Configuração",
+    Callback = function()
+        LoadConfig()
+        Rayfield:Notify({
+            Title = "📂 Config",
+            Content = "Configuração carregada!",
+            Duration = 3
+        })
+    end
+})
+
+ConfigTab:CreateSection(" ")
+
+ConfigTab:CreateLabel("⚠️ Dica:")
+ConfigTab:CreateLabel("Salve antes de sair do jogo")
+ConfigTab:CreateLabel("Carregue quando entrar novamente")
 -- CLICK TP
 local Mouse = Player:GetMouse()
 Mouse.Button1Down:Connect(function()
