@@ -358,6 +358,7 @@ CreditTab:CreateButton({
       })
    end,
 })
+
 ----================ ABA VERSÃO (FIX) =================
 local VersionTab = Window:CreateTab("📌 Versão")
 
