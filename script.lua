@@ -385,6 +385,31 @@ local function LoadConfig()
     end
 end
 
+--================ ABA VERSÃO =================
+local VersionTab = Window:CreateTab("📌 Versão")
+
+-- versão do seu script (você pode mudar aqui)
+local ScriptVersion = "1.0.3"
+
+-- função de data/hora
+local function GetDateTime()
+    local date = os.date("*t")
+    return string.format("%02d/%02d/%04d %02d:%02d:%02d",
+        date.day, date.month, date.year,
+        date.hour, date.min, date.sec)
+end
+
+-- label inicial
+local VersionLabel = VersionTab:CreateLabel("Versão: "..ScriptVersion.." | "..GetDateTime())
+
+-- atualizar em tempo real
+task.spawn(function()
+    while true do
+        task.wait(1)
+        VersionLabel:Set("Versão: "..ScriptVersion.." | "..GetDateTime())
+    end
+end)
+
 --================ ABA CONFIG PRO =================
 local ConfigTab = Window:CreateTab("⚙️ Config PRO")
 
