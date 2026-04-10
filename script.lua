@@ -468,3 +468,13 @@ Mouse.Button1Down:Connect(function()
         end
     end
 end)
+
+RunService.Stepped:Connect(function()
+    if noclip and AcessoAtivado and Player.Character then
+        for _, part in pairs(Player.Character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    end
+end)
