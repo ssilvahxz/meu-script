@@ -212,37 +212,7 @@ LoginTab:CreateInput({
 -- TELEPORT
 local TPTab = Window:CreateTab("🚀 Teleportes", 4483362458)
 
-
-
-TPTab:CreateToggle({
-   Name = "Ativar Click Teleport",
-   CurrentValue = false,
-   Callback = function(Value)
-      if AcessoAtivado then
-         ClickTPEnabled = Value
-      end
-   end,
-})
-
-TPTab:CreateSection("📍 Sistema de Posições")
-
--- Teleporte - Local 1
-TPTab:CreateButton({
-    Name = "💾 Salvar Local 01",
-    Callback = function()
-        if AcessoAtivado and Player.Character then
-            Ponto1 = Player.Character.HumanoidRootPart.CFrame
-            Rayfield:Notify({
-                Title = "💾 Local 01",
-                Content = "Local 01 salvo com sucesso!",
-                Duration = 3
-            })
-        end
-    end
-})
-
-TPTab:CreateButton({
-    Namelocal Players = game:GetService("Players")
+local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
@@ -281,6 +251,36 @@ TPTab:CreateToggle({
 			})
 		end
 	end
+})
+
+TPTab:CreateToggle({
+   Name = "Ativar Click Teleport",
+   CurrentValue = false,
+   Callback = function(Value)
+      if AcessoAtivado then
+         ClickTPEnabled = Value
+      end
+   end,
+})
+
+TPTab:CreateSection("📍 Sistema de Posições")
+
+-- Teleporte - Local 1
+TPTab:CreateButton({
+    Name = "💾 Salvar Local 01",
+    Callback = function()
+        if AcessoAtivado and Player.Character then
+            Ponto1 = Player.Character.HumanoidRootPart.CFrame
+            Rayfield:Notify({
+                Title = "💾 Local 01",
+                Content = "Local 01 salvo com sucesso!",
+                Duration = 3
+            })
+        end
+    end
+})
+
+
 }) = "📌 Ir para Local 01",
     Callback = function()
         if AcessoAtivado and Ponto1 and Player.Character then
