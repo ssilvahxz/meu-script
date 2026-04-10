@@ -213,7 +213,7 @@ local TPTab = Window:CreateTab("🚀 Teleportes", 4483362458)
 
 --================ SPEED SYSTEM =================
 local SpeedAtivo = false
-local Velocidade = 16 -- padrão
+local Velocidade = 16
 
 TPTab:CreateSection("⚡ Sistema de Velocidade")
 
@@ -243,17 +243,15 @@ TPTab:CreateSlider({
     end
 })
 
--- LOOP DE SPEED
-RunService.RenderStepped:Connect(function()
-    if SpeedAtivo and AcessoAtivado and Player.Character then
+-- LOOP CORRIGIDO
+RunService.Heartbeat:Connect(function()
+    if Player.Character then
         local humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
+
         if humanoid then
-            humanoid.WalkSpeed = Velocidade
-        end
-    else
-        if Player.Character then
-            local humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
-            if humanoid then
+            if SpeedAtivo and AcessoAtivado then
+                humanoid.WalkSpeed = Velocidade
+            else
                 humanoid.WalkSpeed = 16
             end
         end
@@ -282,20 +280,7 @@ game:GetService("RunService").Stepped:Connect(function()
     if noclip and AcessoAtivado and game.Players.LocalPlayer.Character then
         for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
             if part:IsA("BasePart") then
-                part.CanCollide = false
-            end
-        end
-    end
-end)
-game:GetService("RunService").Stepped:Connect(function()
-    if noclip and game.Players.LocalPlayer.Character then
-        for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-            if part:IsA("BasePart") then
-                part.CanCollide = false
-            end
-        end
-    end
-end)
+
 
 TPTab:CreateToggle({
    Name = "Ativar Click Teleport",
