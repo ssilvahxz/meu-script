@@ -212,6 +212,27 @@ LoginTab:CreateInput({
 -- TELEPORT
 local TPTab = Window:CreateTab("🚀 Teleportes", 4483362458)
 
+-- Variável de controle (coloque no topo do seu script)
+local noclip = false 
+
+-- O Toggle para o seu Painel
+TPTab:CreateToggle({
+    Name = "👻 Noclip",
+    CurrentValue = false,
+    Callback = function(v)
+        -- Se você tiver sistema de key, mantenha a verificação abaixo
+        if not AcessoAtivado then
+            Rayfield:Notify({
+                Title = "🔒 Bloqueado",
+                Content = "Você precisa liberar o acesso primeiro!",
+                Duration = 3
+            })
+            return
+        end
+        
+        noclip = v -- Ativa ou desativa a variável
+    end
+})
 
 TPTab:CreateToggle({
    Name = "Ativar Click Teleport",
@@ -223,47 +244,7 @@ TPTab:CreateToggle({
    end,
 })
 
-TPTab:CreateSelocal RunService = game:GetService("RunService")
-local player = game.Players.LocalPlayer
-local noclipConnection -- Variável para armazenar a conexão do loop
-
-TPTab:CreateToggle({
-    Name = "👻 Noclip",
-    CurrentValue = false,
-    Callback = function(v)
-        -- 1. Verifica se o acesso está liberado
-        if not AcessoAtivado then
-            Rayfield:Notify({
-                Title = "🔒 Bloqueado",
-                Content = "Digite a Key primeiro!",
-                Duration = 3
-            })
-            return
-        end
-
-        noclip = v
-
-        -- 2. Lógica para ativar/desativar o Noclip
-        if noclip then
-            -- Cria um loop que roda a cada quadro do jogo
-            noclipConnection = RunService.Stepped:Connect(function()
-                if noclip and player.Character then
-                    for _, part in pairs(player.Character:GetDescendants()) do
-                        if part:IsA("BasePart") and part.CanCollide then
-                            part.CanCollide = false
-                        end
-                    end
-                end
-            end)
-        else
-            -- Desliga o loop quando o toggle for desativado
-            if noclipConnection then
-                noclipConnection:Disconnect()
-            end
-        end
-    end
-})
-ction("📍 Sistema de Posições")
+TPTab:CreateSection("📍 Sistema de Posições")
 
 -- Teleporte - Local 1
 TPTab:CreateButton({
@@ -398,11 +379,18 @@ Mouse.Button1Down:Connect(function()
     end
 end)
 
+-- Esse serviço precisa estar no topo do script:
+local RunService = game:GetService("RunService")
+
+-- O loop que desativa a colisão constantemente
 RunService.Stepped:Connect(function()
-    if noclip and AcessoAtivado and Player.Character then
-        for _, part in pairs(Player.Character:GetDescendants()) do
-            if part:IsA("BasePart") then
-                part.CanCollide = false
+    if noclip then
+        local character = game.Players.LocalPlayer.Character
+        if character then
+            for _, part in pairs(character:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.CanCollide = false
+                end
             end
         end
     end
