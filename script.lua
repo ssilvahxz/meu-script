@@ -257,6 +257,54 @@ TPTab:CreateToggle({
       end
    end,
 })
+--================ SPEED SYSTEM =================
+local SpeedAtivo = false
+local Velocidade = 16 -- padrão
+
+TPTab:CreateSection("⚡ Sistema de Velocidade")
+
+TPTab:CreateToggle({
+    Name = "Ativar Speed",
+    CurrentValue = false,
+    Callback = function(v)
+        if AcessoAtivado then
+            SpeedAtivo = v
+        else
+            Rayfield:Notify({
+                Title = "🔒 Bloqueado",
+                Content = "Digite a Key primeiro!",
+                Duration = 3
+            })
+        end
+    end
+})
+
+TPTab:CreateSlider({
+    Name = "Velocidade",
+    Range = {16, 200},
+    Increment = 1,
+    CurrentValue = 16,
+    Callback = function(v)
+        Velocidade = v
+    end
+})
+
+-- LOOP DE SPEED
+RunService.RenderStepped:Connect(function()
+    if SpeedAtivo and AcessoAtivado and Player.Character then
+        local humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.WalkSpeed = Velocidade
+        end
+    else
+        if Player.Character then
+            local humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid.WalkSpeed = 16
+            end
+        end
+    end
+end)
 
 TPTab:CreateSection("📍 Sistema de Posições")
 
