@@ -106,6 +106,7 @@ local KeysValidas = {
 ["9867"] = true,
 ["5031"] = true,
 ["6748"] = true,
+["2196"] = true,
 
 }
 
@@ -211,77 +212,6 @@ LoginTab:CreateInput({
 -- TELEPORT
 local TPTab = Window:CreateTab("🚀 Teleportes", 4483362458)
 
---================ SPEED SYSTEM =================
-local SpeedAtivo = false
-local Velocidade = 16
-
-TPTab:CreateSection("⚡ Sistema de Velocidade")
-
-TPTab:CreateToggle({
-    Name = "Ativar Speed",
-    CurrentValue = false,
-    Callback = function(v)
-        if AcessoAtivado then
-            SpeedAtivo = v
-        else
-            Rayfield:Notify({
-                Title = "🔒 Bloqueado",
-                Content = "Digite a Key primeiro!",
-                Duration = 3
-            })
-        end
-    end
-})
-
-TPTab:CreateSlider({
-    Name = "Velocidade",
-    Range = {16, 200},
-    Increment = 1,
-    CurrentValue = 16,
-    Callback = function(v)
-        Velocidade = v
-    end
-})
-
--- LOOP CORRIGIDO
-RunService.Heartbeat:Connect(function()
-    if Player.Character then
-        local humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
-
-        if humanoid then
-            if SpeedAtivo and AcessoAtivado then
-                humanoid.WalkSpeed = Velocidade
-            else
-                humanoid.WalkSpeed = 16
-            end
-        end
-    end
-end)
-
-local noclip = false
-
-TPTab:CreateToggle({
-    Name = "👻 Noclip",
-    CurrentValue = false,
-    Callback = function(Value)
-        if AcessoAtivado then
-            noclip = Value
-        else
-            Rayfield:Notify({
-                Title = "🔒 Bloqueado",
-                Content = "Digite a Key primeiro!",
-                Duration = 3
-            })
-        end
-    end
-})
-
-game:GetService("RunService").Stepped:Connect(function()
-    if noclip and AcessoAtivado and game.Players.LocalPlayer.Character then
-        for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-            if part:IsA("BasePart") then
-
-
 TPTab:CreateToggle({
    Name = "Ativar Click Teleport",
    CurrentValue = false,
@@ -291,7 +221,6 @@ TPTab:CreateToggle({
       end
    end,
 })
-
 
 TPTab:CreateSection("📍 Sistema de Posições")
 
@@ -407,118 +336,14 @@ CreditTab:CreateButton({
       })
    end,
 })
--- ABA VERSÃO
-local VersionTab = Window:CreateTab("📌 Versão", 4483362458)
+-- ABA CONFIGURAÇÃO
+local ConfigTab = Window:CreateTab("⚙️ Configuração", 4483362458)
 
--- Configura a versão inicial (você pode mudar no GitHub)
-local ScriptVersion = "1.0.2"
+ConfigTab:CreateSection("💾 Sistema de Configurações")
+ConfigTab:CreateLabel("Sistema de salvar configurações em breve")
+ConfigTab:CreateLabel("Fica ligado para mais atualizações no script")
+ConfigTab:CreateSection(" ") -- espaço extra
 
--- Função para pegar data e hora atual
-local function GetCurrentDateTime()
-    local date = os.date("*t") -- pega tabela com dia, mês, ano, hora, minuto, segundo
-    return string.format("%02d/%02d/%04d %02d:%02d:%02d", 
-        date.day, date.month, date.year, date.hour, date.min, date.sec)
-end
-
--- Label principal da versão
-local VersionLabel = VersionTab:CreateLabel("Versão: "..ScriptVersion.." | "..GetCurrentDateTime())
-
--- Atualizar a data/hora a cada segundo
-task.spawn(function()
-    while true do
-        task.wait(1)
-        VersionLabel:Set("Versão: "..ScriptVersion.." | "..GetCurrentDateTime())
-    end
-end)
-
---================ CONFIG PRO SYSTEM =================
-local HttpService = game:GetService("HttpService")
-local ConfigFile = "SilvaHub_Config.json"
-
--- converter CFrame → tabela
-local function CFrameToTable(cf)
-    if not cf then return nil end
-    return {cf:GetComponents()}
-end
-
--- tabela → CFrame
-local function TableToCFrame(tab)
-    if not tab then return nil end
-    return CFrame.new(unpack(tab))
-end
-
--- SALVAR
-local function SaveConfig()
-    if writefile then
-        local data = {
-            noclip = noclip,
-            clicktp = ClickTPEnabled,
-            ponto1 = CFrameToTable(Ponto1),
-            ponto2 = CFrameToTable(Ponto2),
-            ponto3 = CFrameToTable(Ponto3)
-        }
-
-        writefile(ConfigFile, HttpService:JSONEncode(data))
-    end
-end
-
--- CARREGAR (AGORA SÓ PELO BOTÃO)
-local function LoadConfig()
-    if isfile and isfile(ConfigFile) then
-        local success, data = pcall(function()
-            return HttpService:JSONDecode(readfile(ConfigFile))
-        end)
-
-        if success and type(data) == "table" then
-            noclip = data.noclip or false
-            ClickTPEnabled = data.clicktp or false
-
-            Ponto1 = TableToCFrame(data.ponto1)
-            Ponto2 = TableToCFrame(data.ponto2)
-            Ponto3 = TableToCFrame(data.ponto3)
-        end
-    end
-end
-
---================ ABA CONFIG PRO =================
-local ConfigTab = Window:CreateTab("⚙️ Config PRO")
-
-ConfigTab:CreateSection("💾 Sistema de Configuração")
-
-ConfigTab:CreateLabel("Salve suas posições e configurações")
-ConfigTab:CreateLabel("Use carregar apenas quando quiser")
-
-ConfigTab:CreateSection(" ")
-
-ConfigTab:CreateButton({
-    Name = "💾 Salvar Configuração",
-    Callback = function()
-        SaveConfig()
-        Rayfield:Notify({
-            Title = "💾 Config",
-            Content = "Configuração salva com sucesso!",
-            Duration = 3
-        })
-    end
-})
-
-ConfigTab:CreateButton({
-    Name = "📂 Carregar Configuração",
-    Callback = function()
-        LoadConfig()
-        Rayfield:Notify({
-            Title = "📂 Config",
-            Content = "Configuração carregada!",
-            Duration = 3
-        })
-    end
-})
-
-ConfigTab:CreateSection(" ")
-
-ConfigTab:CreateLabel("⚠️ Dica:")
-ConfigTab:CreateLabel("Salve antes de sair do jogo")
-ConfigTab:CreateLabel("Carregue quando entrar novamente")
 -- CLICK TP
 local Mouse = Player:GetMouse()
 Mouse.Button1Down:Connect(function()
