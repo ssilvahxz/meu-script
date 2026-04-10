@@ -413,6 +413,7 @@ ConfigTab:CreateSection(" ")
 ConfigTab:CreateLabel("⚠️ Dica:")
 ConfigTab:CreateLabel("Salve antes de sair do jogo")
 ConfigTab:CreateLabel("Carregue quando entrar novamente")
+
 -- CLICK TP
 local Mouse = Player:GetMouse()
 Mouse.Button1Down:Connect(function()
