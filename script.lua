@@ -219,6 +219,8 @@ TPTab:CreateToggle({
         if AcessoAtivado then
             noclip = v
         else
+            noclip = false
+
             Rayfield:Notify({
                 Title = "🔒 Bloqueado",
                 Content = "Digite a Key primeiro!",
