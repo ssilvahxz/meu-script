@@ -358,6 +358,21 @@ CreditTab:CreateButton({
       })
    end,
 })
+----================ ABA VERSÃO (FIX) =================
+local VersionTab = Window:CreateTab("📌 Versão")
+
+local ScriptVersion = "1.0.2"
+
+local VersionLabel = VersionTab:CreateLabel("Versão: "..ScriptVersion)
+
+task.spawn(function()
+    while true do
+        task.wait(1)
+        local hora = os.date("%H:%M:%S")
+        VersionLabel:Set("Versão: "..ScriptVersion.." | "..hora)
+    end
+end)
+
 -- ABA CONFIGURAÇÃO
 local ConfigTab = Window:CreateTab("⚙️ Configuração", 4483362458)
 
