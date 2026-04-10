@@ -406,7 +406,7 @@ end
 ----================ ABA VERSÃO (FIX) =================
 local VersionTab = Window:CreateTab("📌 Versão")
 
-local ScriptVersion = "1.0.3"
+local ScriptVersion = "1.0.2"
 
 local VersionLabel = VersionTab:CreateLabel("Versão: "..ScriptVersion)
 
