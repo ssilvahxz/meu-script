@@ -212,47 +212,6 @@ LoginTab:CreateInput({
 -- TELEPORT
 local TPTab = Window:CreateTab("🚀 Teleportes", 4483362458)
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-
-local player = Players.LocalPlayer
-
-local noclip = false
-local AcessoAtivado = true -- teste (ou seu sistema de key)
-
--- LOOP DO NOCLIP (OBRIGATÓRIO)
-RunService.Stepped:Connect(function()
-	if noclip then
-		local char = player.Character
-		if char then
-			for _, part in pairs(char:GetDescendants()) do
-				if part:IsA("BasePart") then
-					part.CanCollide = false
-				end
-			end
-		end
-	end
-end)
-
--- TOGGLE RAYFIELD CORRIGIDO
-TPTab:CreateToggle({
-	Name = "👻 Noclip",
-	CurrentValue = false,
-	Callback = function(v)
-		if AcessoAtivado then
-			noclip = v
-		else
-			noclip = false
-
-			Rayfield:Notify({
-				Title = "🔒 Bloqueado",
-				Content = "Digite a Key primeiro!",
-				Duration = 3
-			})
-		end
-	end
-})
-
 TPTab:CreateToggle({
    Name = "Ativar Click Teleport",
    CurrentValue = false,
