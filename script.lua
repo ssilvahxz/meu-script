@@ -213,6 +213,22 @@ LoginTab:CreateInput({
 local TPTab = Window:CreateTab("🚀 Teleportes", 4483362458)
 
 TPTab:CreateToggle({
+    Name = "👻 Noclip",
+    CurrentValue = false,
+    Callback = function(v)
+        if AcessoAtivado then
+            noclip = v
+        else
+            Rayfield:Notify({
+                Title = "🔒 Bloqueado",
+                Content = "Digite a Key primeiro!",
+                Duration = 3
+            })
+        end
+    end
+})
+
+TPTab:CreateToggle({
    Name = "Ativar Click Teleport",
    CurrentValue = false,
    Callback = function(Value)
