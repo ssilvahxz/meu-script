@@ -212,28 +212,6 @@ LoginTab:CreateInput({
 -- TELEPORT
 local TPTab = Window:CreateTab("🚀 Teleportes", 4483362458)
 
--- Variável de controle (coloque no topo do seu script)
-local noclip = false 
-
--- O Toggle para o seu Painel
-TPTab:CreateToggle({
-    Name = "👻 Noclip",
-    CurrentValue = false,
-    Callback = function(v)
-        -- Se você tiver sistema de key, mantenha a verificação abaixo
-        if not AcessoAtivado then
-            Rayfield:Notify({
-                Title = "🔒 Bloqueado",
-                Content = "Você precisa liberar o acesso primeiro!",
-                Duration = 3
-            })
-            return
-        end
-        
-        noclip = v -- Ativa ou desativa a variável
-    end
-})
-
 TPTab:CreateToggle({
    Name = "Ativar Click Teleport",
    CurrentValue = false,
@@ -358,60 +336,13 @@ CreditTab:CreateButton({
       })
    end,
 })
-----================ ABA VERSÃO (FIX) =================
-local VersionTab = Window:CreateTab("📌 Versão")
+-- ABA CONFIGURAÇÃO
+local ConfigTab = Window:CreateTab("⚙️ Configuração", 4483362458)
 
-local ScriptVersion = "1.0.2"
-
-local VersionLabel = VersionTab:CreateLabel("Versão: "..ScriptVersion)
-
-task.spawn(function()
-    while true do
-        task.wait(1)
-        local hora = os.date("%H:%M:%S")
-        VersionLabel:Set("Versão: "..ScriptVersion.." | "..hora)
-    end
-end)
-
-================ ABA CONFIG PRO =================
-local ConfigTab = Window:CreateTab("⚙️ Config PRO")
-
-ConfigTab:CreateSection("💾 Sistema de Configuração")
-
-ConfigTab:CreateLabel("Salve suas posições e configurações")
-ConfigTab:CreateLabel("Use carregar apenas quando quiser")
-
-ConfigTab:CreateSection(" ")
-
-ConfigTab:CreateButton({
-    Name = "💾 Salvar Configuração",
-    Callback = function()
-        SaveConfig()
-        Rayfield:Notify({
-            Title = "💾 Config",
-            Content = "Configuração salva com sucesso!",
-            Duration = 3
-        })
-    end
-})
-
-ConfigTab:CreateButton({
-    Name = "📂 Carregar Configuração",
-    Callback = function()
-        LoadConfig()
-        Rayfield:Notify({
-            Title = "📂 Config",
-            Content = "Configuração carregada!",
-            Duration = 3
-        })
-    end
-})
-
-ConfigTab:CreateSection(" ")
-
-ConfigTab:CreateLabel("⚠️ Dica:")
-ConfigTab:CreateLabel("Salve antes de sair do jogo")
-ConfigTab:CreateLabel("Carregue quando entrar novamente")
+ConfigTab:CreateSection("💾 Sistema de Configurações")
+ConfigTab:CreateLabel("Sistema de salvar configurações em breve")
+ConfigTab:CreateLabel("Fica ligado para mais atualizações no script")
+ConfigTab:CreateSection(" ") -- espaço extra
 
 -- CLICK TP
 local Mouse = Player:GetMouse()
@@ -421,23 +352,6 @@ Mouse.Button1Down:Connect(function()
             local hrp = Player.Character:FindFirstChild("HumanoidRootPart")
             if hrp then
                 hrp.CFrame = CFrame.new(Mouse.Hit.p) + Vector3.new(0,3,0)
-            end
-        end
-    end
-end)
-
--- Esse serviço precisa estar no topo do script:
-local RunService = game:GetService("RunService")
-
--- O loop que desativa a colisão constantemente
-RunService.Stepped:Connect(function()
-    if noclip then
-        local character = game.Players.LocalPlayer.Character
-        if character then
-            for _, part in pairs(character:GetDescendants()) do
-                if part:IsA("BasePart") then
-                    part.CanCollide = false
-                end
             end
         end
     end
