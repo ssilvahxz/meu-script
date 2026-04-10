@@ -211,52 +211,6 @@ LoginTab:CreateInput({
 -- TELEPORT
 local TPTab = Window:CreateTab("🚀 Teleportes", 4483362458)
 
-local noclip = false
-
-TPTab:CreateToggle({
-    Name = "👻 Noclip",
-    CurrentValue = false,
-    Callback = function(Value)
-        if AcessoAtivado then
-            noclip = Value
-        else
-            Rayfield:Notify({
-                Title = "🔒 Bloqueado",
-                Content = "Digite a Key primeiro!",
-                Duration = 3
-            })
-        end
-    end
-})
-
-game:GetService("RunService").Stepped:Connect(function()
-    if noclip and AcessoAtivado and game.Players.LocalPlayer.Character then
-        for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-            if part:IsA("BasePart") then
-                part.CanCollide = false
-            end
-        end
-    end
-end)
-game:GetService("RunService").Stepped:Connect(function()
-    if noclip and game.Players.LocalPlayer.Character then
-        for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-            if part:IsA("BasePart") then
-                part.CanCollide = false
-            end
-        end
-    end
-end)
-
-TPTab:CreateToggle({
-   Name = "Ativar Click Teleport",
-   CurrentValue = false,
-   Callback = function(Value)
-      if AcessoAtivado then
-         ClickTPEnabled = Value
-      end
-   end,
-})
 --================ SPEED SYSTEM =================
 local SpeedAtivo = false
 local Velocidade = 16 -- padrão
@@ -305,6 +259,54 @@ RunService.RenderStepped:Connect(function()
         end
     end
 end)
+
+local noclip = false
+
+TPTab:CreateToggle({
+    Name = "👻 Noclip",
+    CurrentValue = false,
+    Callback = function(Value)
+        if AcessoAtivado then
+            noclip = Value
+        else
+            Rayfield:Notify({
+                Title = "🔒 Bloqueado",
+                Content = "Digite a Key primeiro!",
+                Duration = 3
+            })
+        end
+    end
+})
+
+game:GetService("RunService").Stepped:Connect(function()
+    if noclip and AcessoAtivado and game.Players.LocalPlayer.Character then
+        for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    end
+end)
+game:GetService("RunService").Stepped:Connect(function()
+    if noclip and game.Players.LocalPlayer.Character then
+        for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    end
+end)
+
+TPTab:CreateToggle({
+   Name = "Ativar Click Teleport",
+   CurrentValue = false,
+   Callback = function(Value)
+      if AcessoAtivado then
+         ClickTPEnabled = Value
+      end
+   end,
+})
+
 
 TPTab:CreateSection("📍 Sistema de Posições")
 
